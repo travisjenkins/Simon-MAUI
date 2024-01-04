@@ -8,7 +8,6 @@ namespace Simon.Models
 {
     public class Game(int? difficulty)
     {
-        // TODO:  Figure out how to play sounds in a MAUI app
         private readonly Random _random = new();
         private readonly List<string> _buttonColors = ["Red", "Blue", "Green", "Yellow"];
         public List<string> Pattern { get; set; } = [];
@@ -113,7 +112,5 @@ namespace Simon.Models
             Winner = false;
             GameOver = false;
         }
-
-        // TODO:  Allow saving current and loading saved game?
     }
 }
