@@ -10,12 +10,10 @@ namespace Simon.Models
     {
         private readonly Random _random = new();
         private readonly List<string> _buttonColors = ["Red", "Blue", "Green", "Yellow"];
-        public List<string> Pattern { get; set; } = [];
+        private List<string> Pattern { get; set; } = [];
         public List<string> UserPattern { get; set; } = [];
-        public int Difficulty { get; set; } = difficulty ?? 1;
-        public int Level { get; set; } = 0;
-        public bool FirstRun { get; set; } = true;
-        public bool Winner { get; set; } = false;
+        private int Difficulty { get; set; } = difficulty ?? 1;
+        public int Level { get; private set; } = 0;
         public bool GameOver { get; set; } = false;
 
         public void NextSequence()
@@ -23,6 +21,10 @@ namespace Simon.Models
             string randomColor = _buttonColors[_random.Next(_buttonColors.Count)];
             Pattern.Add(randomColor);
             Level++;
+        }
+
+        public List<string> GetGamePattern(){
+            return Pattern;
         }
 
         public bool PatternsAreEqualSize()
@@ -67,7 +69,6 @@ namespace Simon.Models
             }
             if (Pattern.Count == winner)
             {
-                Winner = true;
                 return true;
             }
             else return false;
@@ -108,8 +109,6 @@ namespace Simon.Models
             Pattern.Clear();
             UserPattern.Clear();
             Level = 0;
-            FirstRun = true;
-            Winner = false;
             GameOver = false;
         }
     }
