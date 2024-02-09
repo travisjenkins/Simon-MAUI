@@ -207,7 +207,7 @@ namespace Simon.ViewModels
             if (_game != null)
             {
                 int delay = _game.GetDelay();
-                foreach (var color in _game.Pattern)
+                foreach (var color in _game.GetGamePattern())
                 {
                     await FlashButtonWithSound(color);
                     await Task.Delay(delay);
@@ -227,7 +227,6 @@ namespace Simon.ViewModels
             {
                 _game = new(SelectedDifficulty);
             }
-            _game.FirstRun = false;
             _game.NextSequence();
             GameMessage = $"Level {_game.Level}";
             StartButtonText = "RESET";
@@ -263,7 +262,7 @@ namespace Simon.ViewModels
         {
             if (_game is null) return;
             if (_game.GameOver) return;
-            if (_game.Winner) return;
+            if (_game.IsWinner()) return;
             if (_game.Level == 0) return;
             if (IsBusy) return;
             if (color is not string buttonColor) return;
