@@ -4,6 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style x:Key="GameGrid" TargetType="Grid">
+        <Setter Property="Padding" Value="{OnPlatform iOS='10,0,10,30', Default='10'}" />
+    </Style>
+
     <Style x:Key="BaseButton" TargetType="Button">
         <Setter Property="BorderWidth" Value="0"/>
     </Style>
@@ -15,9 +19,9 @@
     </Style>
 
     <Style x:Key="CircleButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-        <Setter Property="CornerRadius" Value="50"/>
-        <Setter Property="HeightRequest" Value="30"/>
-        <Setter Property="WidthRequest" Value="30"/>
+        <Setter Property="CornerRadius" Value="{OnPlatform iOS=22, Default=50}"/>
+        <Setter Property="HeightRequest" Value="{OnPlatform iOS=45, Default=30}"/>
+        <Setter Property="WidthRequest" Value="{OnPlatform iOS=45, Default=30}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -36,11 +40,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+    <Style x:Key="BaseLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource White}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="PressStart2P" />
-        <Setter Property="FontSize" Value="12" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -51,9 +54,18 @@
         </Setter>
     </Style>
 
+    <Style x:Key="GameStatus" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="{OnPlatform iOS='Large', Default='Medium'}" />
+    </Style>
+
+    <Style x:Key="GameControlsLabel" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
     <Style TargetType="Picker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightBlack}, Dark={StaticResource DarkBlack},Default={StaticResource Black}}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
         <Setter Property="FontFamily" Value="PressStart2P"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -66,14 +78,9 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Page" ApplyToDerivedTypes="True">
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-    </Style>
-
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkBlack}}" />
+        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource LightBlack}, Dark={StaticResource White}}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
     </Style>
 

@@ -8,16 +8,24 @@
 
     <Color x:Key="White">WhiteSmoke</Color>
     <Color x:Key="Black">Black</Color>
-    <Color x:Key="Green">#00BC16</Color>
-    <Color x:Key="Yellow">#FDFF0A</Color>
-    <Color x:Key="Red">#E80202</Color>
-    <Color x:Key="Blue">#004AEA</Color>
+
+    <Color x:Key="LightBlack">#3D3D3D</Color>
+    <Color x:Key="LightGreen">#00EF1C</Color>
+    <Color x:Key="LightYellow">#FEFF59</Color>
+    <Color x:Key="LightRed">#FD2020</Color>
+    <Color x:Key="LightBlue">#1E65FF</Color>
+
+    <Color x:Key="DarkBlack">Black</Color>
+    <Color x:Key="DarkGreen">#00BC16</Color>
+    <Color x:Key="DarkYellow">#FDFF0A</Color>
+    <Color x:Key="DarkRed">#E80202</Color>
+    <Color x:Key="DarkBlue">#004AEA</Color>
 
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
-    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource Green}"/>
-    <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource Yellow}"/>
-    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource Red}"/>
-    <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource Blue}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{AppThemeBinding Light={StaticResource LightBlack}, Dark={StaticResource DarkBlack}, Default={StaticResource DarkBlack}}"/>
+    <SolidColorBrush x:Key="GreenBrush" Color="{AppThemeBinding Light={StaticResource LightGreen}, Dark={StaticResource DarkGreen}, Default={StaticResource DarkGreen}}"/>
+    <SolidColorBrush x:Key="YellowBrush" Color="{AppThemeBinding Light={StaticResource LightYellow}, Dark={StaticResource DarkYellow}, Default={StaticResource DarkYellow}}"/>
+    <SolidColorBrush x:Key="RedBrush" Color="{AppThemeBinding Light={StaticResource LightRed}, Dark={StaticResource DarkRed}, Default={StaticResource DarkRed}}"/>
+    <SolidColorBrush x:Key="BlueBrush" Color="{AppThemeBinding Light={StaticResource LightBlue}, Dark={StaticResource DarkBlue}, Default={StaticResource DarkBlue}}"/>
 
 </ResourceDictionary>

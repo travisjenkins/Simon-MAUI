@@ -8,23 +8,26 @@
              x:Class="Simon.MainPage">
 
     <ScrollView>
-        <Grid x:Name="GameGrid" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*" BackgroundColor="{Binding GridBackgroundColor}">
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*" BackgroundColor="{Binding GridBackgroundColor}" Style="{StaticResource GameGrid}">
+            <!--Sound Files-->
             <toolkit:MediaElement x:Name="mediaElementBlue" IsVisible="False" Source="embed://Blue.mp3" />
             <toolkit:MediaElement x:Name="mediaElementGreen" IsVisible="False" Source="embed://Green.mp3" />
             <toolkit:MediaElement x:Name="mediaElementRed" IsVisible="False" Source="embed://Red.mp3" />
             <toolkit:MediaElement x:Name="mediaElementWrong" IsVisible="False" Source="embed://Wrong.mp3" />
             <toolkit:MediaElement x:Name="mediaElementYellow" IsVisible="False" Source="embed://Yellow.mp3" />
-            <Label Grid.ColumnSpan="3" Text="{Binding GameMessage}" FontAttributes="Bold" FontSize="Medium"  HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
+            <!--Title-->
+            <Label Grid.ColumnSpan="3" Text="{Binding GameMessage}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" Style="{StaticResource GameStatus}" />
+            <!--Upper Buttons-->
             <Button Grid.Row="1" BackgroundColor="{Binding GreenButtonBackgroundColor}" Opacity="{Binding GreenButtonOpacity}" Style="{StaticResource SimonButton}" Command="{Binding SimonButtonCommand}" CommandParameter="Green" IsEnabled="{Binding IsNotBusy}" />
             <Button Grid.Row="1" Grid.Column="2" BackgroundColor="{Binding RedButtonBackgroundColor}" Opacity="{Binding RedButtonOpacity}" Style="{StaticResource SimonButton}" Command="{Binding SimonButtonCommand}" CommandParameter="Red" IsEnabled="{Binding IsNotBusy}" />
-
+            <!--Center Game Controls-->
             <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="*" RowDefinitions="*,*,*,*" RowSpacing="10" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label Text="SKILL LEVEL" HorizontalTextAlignment="Center" />
+                <Label Text="SKILL LEVEL" HorizontalTextAlignment="Center" Style="{StaticResource GameControlsLabel}" />
                 <Picker Grid.Row="1" ItemsSource="{Binding Difficulties}" SelectedItem="{Binding SelectedDifficulty}" HorizontalTextAlignment="Center" />
                 <Button Grid.Row="2" BackgroundColor="{Binding StartButtonBackgroundColor}" Style="{StaticResource CircleButton}" Command="{Binding StartButtonCommand}" IsEnabled="{Binding IsNotBusy}" />
-                <Label Grid.Row="3" Text="{Binding StartButtonText}" HorizontalTextAlignment="Center" />
+                <Label Grid.Row="3" Text="{Binding StartButtonText}" HorizontalTextAlignment="Center" Style="{StaticResource GameControlsLabel}" />
             </Grid>
-
+            <!--Lower Buttons-->
             <Button Grid.Row="3" BackgroundColor="{Binding YellowButtonBackgroundColor}" Opacity="{Binding YellowButtonOpacity}" Style="{StaticResource SimonButton}" Command="{Binding SimonButtonCommand}" CommandParameter="Yellow" IsEnabled="{Binding IsNotBusy}" />
             <Button Grid.Row="3" Grid.Column="2" BackgroundColor="{Binding BlueButtonBackgroundColor}" Opacity="{Binding BlueButtonOpacity}" Style="{StaticResource SimonButton}" Command="{Binding SimonButtonCommand}" CommandParameter="Blue" IsEnabled="{Binding IsNotBusy}" />
         </Grid>

@@ -18,19 +18,40 @@ namespace Simon.ViewModels
         private readonly MediaElement _mediaElementYellow;
         private readonly MediaElement _mediaElementWrong;
 
-        private Color _gridBackgroundColor = Colors.Black;
+        private static Color _lightBlack = TryGetColor("LightBlack") ?? Colors.Black;
+        private static Color _darkBlack = TryGetColor("DarkBlack") ?? Colors.Black;
+        private static Color _lightGreen = TryGetColor("LightGreen") ?? Colors.Green;
+        private static Color _darkGreen = TryGetColor("DarkGreen") ?? Colors.Green;
+        private static Color _lightYellow = TryGetColor("LightYellow") ?? Colors.Yellow;
+        private static Color _darkYellow = TryGetColor("DarkYellow") ?? Colors.Yellow;
+        private static Color _lightRed = TryGetColor("LightRed") ?? Colors.Red;
+        private static Color _darkRed = TryGetColor("DarkRed") ?? Colors.Red;
+        private static Color _lightBlue = TryGetColor("LightBlue") ?? Colors.Blue;
+        private static Color _darkBlue = TryGetColor("DarkBlue") ?? Colors.Blue;
+
+        private static Color? TryGetColor(string color)
+        {
+            if (Application.Current is not null && Application.Current.Resources.TryGetValue(color, out object colorValue))
+            {
+                if (colorValue is Color requestedColor)
+                    return requestedColor;
+            }
+            return null;
+        }
+
+        private Color _gridBackgroundColor = Application.Current?.RequestedTheme == AppTheme.Light ? _lightBlack : _darkBlack;
         public Color GridBackgroundColor { get => _gridBackgroundColor; set => SetProperty(ref _gridBackgroundColor, value); }
 
-        private Color _blueButtonBackgroundColor = Color.FromRgba(0, 0.29, 0.92, 1);
+        private Color _blueButtonBackgroundColor = Application.Current?.RequestedTheme == AppTheme.Light ? _lightBlue : _darkBlue;
         public Color BlueButtonBackgroundColor { get => _blueButtonBackgroundColor; set => SetProperty(ref _blueButtonBackgroundColor, value); }
 
-        private Color _greenButtonBackgroundColor = Color.FromRgba(0.00, 0.74, 0.09, 1);
+        private Color _greenButtonBackgroundColor = Application.Current?.RequestedTheme == AppTheme.Light ? _lightGreen : _darkGreen;
         public Color GreenButtonBackgroundColor { get => _greenButtonBackgroundColor; set => SetProperty(ref _greenButtonBackgroundColor, value); }
 
-        private Color _redButtonBackgroundColor = Color.FromRgba(0.91, 0.01, 0.01, 1);
+        private Color _redButtonBackgroundColor = Application.Current?.RequestedTheme == AppTheme.Light ? _lightRed : _darkRed;
         public Color RedButtonBackgroundColor { get => _redButtonBackgroundColor; set => SetProperty(ref _redButtonBackgroundColor, value); }
 
-        private Color _yellowButtonBackgroundColor = Color.FromRgba(0.99, 1, 0.04, 1);
+        private Color _yellowButtonBackgroundColor = Application.Current?.RequestedTheme == AppTheme.Light ? _lightYellow : _darkYellow;
         public Color YellowButtonBackgroundColor { get => _yellowButtonBackgroundColor; set => SetProperty(ref _yellowButtonBackgroundColor, value); }
 
         private Color _startButtonBackgroundColor = Color.FromRgba(0.91, 0.01, 0.01, 1);
@@ -218,7 +239,21 @@ namespace Simon.ViewModels
 
         private async Task ResetGame()
         {
-            if (GridBackgroundColor != Colors.Black) GridBackgroundColor = Colors.Black;
+            if (Application.Current is not null)
+            {
+                switch (Application.Current.RequestedTheme)
+                {
+                    case AppTheme.Light:
+                        if (GridBackgroundColor != _lightBlack) GridBackgroundColor = _lightBlack;
+                        break;
+                    case AppTheme.Dark:
+                        if (GridBackgroundColor != _darkBlack) GridBackgroundColor = _darkBlack;
+                        break;
+                    default:
+                        if (GridBackgroundColor != Colors.Black) GridBackgroundColor = Colors.Black;
+                        break;
+                }
+            }
             _game?.ResetGame(SelectedDifficulty);
             await Task.Delay(1000);
         }
